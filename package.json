@@ -1,0 +1,41 @@
+{
+  "name": "tassert",
+  "version": "0.0.1",
+  "description": "High quality runtime assertions for Typescript",
+  "main": "./tassert.js",
+  "scripts": {
+    "build": "tsc -d",
+    "watch": "tsc -w",
+    "test": "ava",
+    "tdd": "npm test -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/bcherny/tassert.git"
+  },
+  "typings": "./tassert.d.ts",
+  "keywords": [
+    "assert",
+    "typescript",
+    "runtime",
+    "guard",
+    "type",
+    "check",
+    "validate",
+    "validation"
+  ],
+  "author": "Boris Cherny <boris@performancejs.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bcherny/tassert/issues"
+  },
+  "homepage": "https://github.com/bcherny/tassert#readme",
+  "devDependencies": {
+    "ava": "^0.14.0",
+    "typescript": "^1.8.9",
+    "typings": "^0.7.12"
+  },
+  "dependencies": {
+    "lodash": "^4.8.2"
+  }
+}
