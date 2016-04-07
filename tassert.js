@@ -5,15 +5,10 @@ const tassert = Object.assign((assert, value) => {
         throw new TypeError();
     }
 }, {
-    boolean: function (value) {
-        return lodash_1.isBoolean(value);
-    },
-    number: function (value) {
-        return lodash_1.isNumber(value);
-    },
-    string: function (value) {
-        return lodash_1.isString(value);
-    }
+    array: (value) => lodash_1.isArray(value),
+    boolean: (value) => lodash_1.isBoolean(value),
+    number: (value) => lodash_1.isNumber(value),
+    string: (value) => lodash_1.isString(value)
 });
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = tassert;

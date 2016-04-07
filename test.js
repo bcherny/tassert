@@ -1,6 +1,16 @@
 import test from 'ava'
 import tassert from './'
 
+test('array', t => {
+  const array = tassert.bind(null, tassert.array)
+  t.is(array([]), undefined)
+  t.is(array([1,2,3]), undefined)
+  t.is(array(new Array(6)), undefined)
+  t.throws(() => array({}), TypeError)
+  t.throws(() => array(new ArrayBuffer), TypeError)
+  t.throws(() => array({length: 12}), TypeError)
+})
+
 test('boolean', t => {
   const boolean = tassert.bind(null, tassert.boolean)
   t.is(boolean(true), undefined)
