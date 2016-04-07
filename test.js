@@ -43,6 +43,20 @@ test('date', t => {
   t.throws(() => date([]), TypeError)
 })
 
+test('element', t => {
+  // TODO
+})
+
+test('error', t => {
+  const error = tassert.bind(null, tassert.error)
+  class CustomError extends TypeError {}
+  t.is(error(new Error), undefined)
+  t.is(error(new TypeError('foo')), undefined)
+  t.is(error(new CustomError('ok')), undefined)
+  t.throws(() => error(new Date()), TypeError)
+  t.throws(() => error({}), TypeError)
+})
+
 test('number', t => {
   const number = tassert.bind(null, tassert.number)
   t.is(number(42), undefined)
