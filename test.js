@@ -29,6 +29,13 @@ test('boolean', t => {
   t.throws(() => boolean(42), TypeError)
 })
 
+test('buffer', t => {
+  const buffer = tassert.bind(null, tassert.buffer)
+  t.is(buffer(new Buffer(10)), undefined)
+  t.throws(() => buffer({}), TypeError)
+  t.throws(() => buffer([]), TypeError)
+})
+
 test('number', t => {
   const number = tassert.bind(null, tassert.number)
   t.is(number(42), undefined)
