@@ -1,6 +1,4 @@
-# tassert
-
-[![Circle CI](https://circleci.com/gh/bcherny/tassert/tree/master.svg?style=svg)](https://circleci.com/gh/bcherny/tassert/tree/master)
+# tassert [![Circle CI](https://circleci.com/gh/bcherny/tassert/tree/master.svg?style=svg)](https://circleci.com/gh/bcherny/tassert/tree/master)
 
 > High quality runtime assertions for Typescript
 
