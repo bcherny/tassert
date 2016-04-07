@@ -9,6 +9,7 @@ const tassert = Object.assign((assert, value) => {
     arrayBuffer: (value) => lodash_1.isArrayBuffer(value),
     boolean: (value) => lodash_1.isBoolean(value),
     buffer: (value) => lodash_1.isBuffer(value),
+    date: (value) => lodash_1.isDate(value),
     number: (value) => lodash_1.isNumber(value),
     string: (value) => lodash_1.isString(value)
 });

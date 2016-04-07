@@ -36,6 +36,13 @@ test('buffer', t => {
   t.throws(() => buffer([]), TypeError)
 })
 
+test('date', t => {
+  const date = tassert.bind(null, tassert.date)
+  t.is(date(new Date), undefined)
+  t.throws(() => date(new Date().toISOString()), TypeError)
+  t.throws(() => date([]), TypeError)
+})
+
 test('number', t => {
   const number = tassert.bind(null, tassert.number)
   t.is(number(42), undefined)
