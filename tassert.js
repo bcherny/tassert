@@ -11,6 +11,7 @@ const tassert = Object.assign((assert, value) => {
     buffer: (value) => lodash_1.isBuffer(value),
     date: (value) => lodash_1.isDate(value),
     error: (value) => lodash_1.isError(value),
+    function: (value) => lodash_1.isFunction(value),
     number: (value) => lodash_1.isNumber(value),
     string: (value) => lodash_1.isString(value)
 });

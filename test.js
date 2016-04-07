@@ -57,6 +57,15 @@ test('error', t => {
   t.throws(() => error({}), TypeError)
 })
 
+test('function', t => {
+  const fn = tassert.bind(null, tassert.function)
+  t.is(fn(function(){}), undefined)
+  t.is(fn(() => {}), undefined)
+  t.is(fn(new Function), undefined)
+  t.is(fn(Date), undefined)
+  t.throws(() => fn({}), TypeError)
+})
+
 test('number', t => {
   const number = tassert.bind(null, tassert.number)
   t.is(number(42), undefined)
