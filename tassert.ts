@@ -1,5 +1,5 @@
 import {
-  isArray, isBoolean, isNumber, isString
+  isArray, isArrayBuffer, isBoolean, isNumber, isString
 } from 'lodash'
 
 export interface Asserter {
@@ -8,9 +8,11 @@ export interface Asserter {
 
 export interface tassert {
   (value: any, type: Asserter): void
-  boolean(value?: any): value is boolean
-  number(value?: any): value is number
-  string(value?: any): value is string
+  array(value: any): value is Array<any>
+  arrayBuffer(value: any): value is ArrayBuffer
+  boolean(value: any): value is boolean
+  number(value: any): value is number
+  string(value: any): value is string
 }
 
 const tassert: tassert = Object.assign(
@@ -19,10 +21,11 @@ const tassert: tassert = Object.assign(
       throw new TypeError()
     }
   }, {
-    array: (value: any): value is boolean => isArray(value),
-    boolean: (value: any): value is boolean => isBoolean(value),
-    number: (value: any): value is number => isNumber(value),
-    string: (value: any): value is string => isString(value)
+          array: (value: any): value is Array<any> => isArray(value),
+    arrayBuffer: (value: any): value is ArrayBuffer => isArrayBuffer(value),
+        boolean: (value: any): value is boolean => isBoolean(value),
+         number: (value: any): value is number => isNumber(value),
+         string: (value: any): value is string => isString(value)
   }
 )
 

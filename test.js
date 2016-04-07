@@ -11,6 +11,14 @@ test('array', t => {
   t.throws(() => array({length: 12}), TypeError)
 })
 
+test('arrayBuffer', t => {
+  const array = tassert.bind(null, tassert.arrayBuffer)
+  t.is(array(new ArrayBuffer), undefined)
+  t.throws(() => array({}), TypeError)
+  t.throws(() => array([]), TypeError)
+  t.throws(() => array({length: 12}), TypeError)
+})
+
 test('boolean', t => {
   const boolean = tassert.bind(null, tassert.boolean)
   t.is(boolean(true), undefined)
