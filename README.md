@@ -14,6 +14,26 @@ t('foo', t.string)
 t(99, t.or(t.number, t.string))
 ```
 
+## Features
+
+- [ ] Native types
+  - [x] `Array`
+  - [x] `ArrayBuffer`
+  - [x] `Boolean`
+  - [x] `Buffer`
+  - ...
+- [ ] Constructors
+- [ ] Lazy constructors
+- [ ] Literals
+  - [ ] String
+  - [ ] Number
+  - ...
+- [ ] Logic
+  - [ ] `and`
+  - [ ] `or`
+  - [ ] `not`
+  - [ ] `xor`
+
 ## Tests
 
 `npm test`

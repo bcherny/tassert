@@ -8,8 +8,12 @@ export interface Asserter {
 }
 
 export interface tassert {
+
+  // main
   (value: any, type: Asserter): void
-       array(value: any): value is Array<any>
+
+  // types
+        array(value: any): value is Array<any>
   arrayBuffer(value: any): value is ArrayBuffer
       boolean(value: any): value is boolean
        buffer(value: any): value is Buffer
@@ -18,6 +22,12 @@ export interface tassert {
      function(value: any): value is Function
        number(value: any): value is number
        string(value: any): value is string
+
+       // logic
+       or(...types: Asserter[]): Asserter
+       and(...types: Asserter[]): Asserter
+       not(...types: Asserter[]): Asserter
+       xor(...types: Asserter[]): Asserter
 }
 
 const tassert: tassert = Object.assign(
@@ -25,7 +35,10 @@ const tassert: tassert = Object.assign(
     if (!assert(value)) {
       throw new TypeError()
     }
-  }, {
+  },
+
+  // types
+  {
           array: (value: any): value is Array<any> => isArray(value),
     arrayBuffer: (value: any): value is ArrayBuffer => isArrayBuffer(value),
         boolean: (value: any): value is boolean => isBoolean(value),
@@ -35,6 +48,14 @@ const tassert: tassert = Object.assign(
        function: (value: any): value is Function => isFunction(value),
          number: (value: any): value is number => isNumber(value),
          string: (value: any): value is string => isString(value)
+  },
+
+  // logic
+  {
+     or: (...types: Asserter[]): Asserter => (value: any) => types.some(t => t(value)),
+    and: (...types: Asserter[]): Asserter => (value: any) => types.every(t => t(value)),
+    not: (type: Asserter): Asserter => (value: any) => !type(value),
+    xor: (...types: Asserter[]): Asserter => (value: any) => types.filter(t => t(value)).length === 1
   }
 )
 

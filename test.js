@@ -1,6 +1,10 @@
 import test from 'ava'
 import tassert from './'
 
+//
+// types
+//
+
 test('array', t => {
   const array = tassert.bind(null, tassert.array)
   t.is(array([]), undefined)
@@ -85,4 +89,15 @@ test('string', t => {
   t.is(string('foo'), undefined)
   t.is(string(new String('foo')), undefined)
   t.throws(() => string(42), TypeError)
+})
+
+//
+// logic
+//
+
+test('or', t => {
+  const numberOrString = tassert.or(tassert.number, tassert.string)
+  t.is(tassert(numberOrString, 'foo'), undefined)
+  t.is(tassert(numberOrString, 42), undefined)
+  t.throws(() => tassert(numberOrString, {}), TypeError)
 })
