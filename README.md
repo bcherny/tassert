@@ -21,18 +21,39 @@ t(99, t.or(t.number, t.string))
   - [x] `ArrayBuffer`
   - [x] `Boolean`
   - [x] `Buffer`
-  - ...
+  - [x] `Date`
+  - [x] `Error`
+  - [x] `Function`
+  - [ ] `Map`
+  - [ ] `NaN`
+  - [ ] `Null`
+  - [x] `Number`
+  - [ ] `Object`
+  - [ ] `RegExp`
+  - [ ] `Set`
+  - [x] `String`
+  - [ ] `Symbol`
+  - [ ] `TypedArray`
+  - [ ] `Undefined`
+  - [ ] `WeakMap`
+  - [ ] `WeakSet`
 - [ ] Constructors
 - [ ] Lazy constructors
 - [ ] Literals
-  - [ ] String
-  - [ ] Number
-  - ...
 - [ ] Logic
   - [ ] `and`
-  - [ ] `or`
+  - [x] `or`
   - [ ] `not`
   - [ ] `xor`
+- [ ] Comparators
+  - [x] ==
+  - [ ] >
+  - [ ] <
+  - [ ] >=
+  - [ ] <=
+  - [ ] :> (Superset of)
+  - [ ] <: (Subset of)
+  - [ ] ~= (Structurally equal)
 
 ## Tests
 
