@@ -127,6 +127,38 @@ test('string', t => {
   t.throws(() => string(42), TypeError)
 })
 
+test('symbol', t => {
+  const symbol = tassert.bind(null, tassert.symbol)
+  t.is(symbol(Symbol()), undefined)
+  t.is(symbol(Symbol('ok')), undefined)
+  t.is(symbol(Symbol.iterator), undefined)
+  t.throws(() => symbol('foo'), TypeError)
+})
+
+test('typedArray', t => {
+  const ta = tassert.bind(null, tassert.typedArray)
+  t.is(ta(new Uint8Array), undefined)
+  t.is(ta(new Uint16Array), undefined)
+  t.is(ta(new Uint32Array), undefined)
+  t.is(ta(new Uint8ClampedArray), undefined)
+  t.is(ta(new Int8Array), undefined)
+  t.is(ta(new Int16Array), undefined)
+  t.is(ta(new Int32Array), undefined)
+  t.is(ta(new Float32Array), undefined)
+  t.is(ta(new Float64Array), undefined)
+  t.throws(() => ta([]), TypeError)
+})
+
+test('undefined', t => {
+  const u = tassert.bind(null, tassert.undefined)
+  t.is(u(undefined), undefined)
+  t.is(u(void 0), undefined)
+  t.throws(() => u(null), TypeError)
+  t.throws(() => u(NaN), TypeError)
+  t.throws(() => u(0), TypeError)
+  t.throws(() => u(''), TypeError)
+})
+
 //
 // logic
 //

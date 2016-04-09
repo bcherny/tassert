@@ -32,9 +32,9 @@ t(99, t.or(t.number, t.string))
   - [x] `RegExp`
   - [ ] `Set`
   - [x] `String`
-  - [ ] `Symbol`
-  - [ ] `TypedArray`
-  - [ ] `Undefined`
+  - [x] `Symbol`
+  - [x] `TypedArray`
+  - [x] `Undefined`
   - [ ] `WeakMap`
   - [ ] `WeakSet`
 - [ ] Constructors

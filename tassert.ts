@@ -1,7 +1,7 @@
 import {
   isArray, isArrayBuffer, isBoolean, isBuffer, isDate, isError,
   isFunction, isNaN, isNull, isNumber, isPlainObject, isRegExp,
-  isString
+  isString, isSymbol, isTypedArray, isUndefined
 } from 'lodash'
 
 export interface Asserter {
@@ -27,6 +27,9 @@ export interface tassert {
        object(value: any): value is Object
        regexp(value: any): value is RegExp
        string(value: any): value is string
+       symbol(value: any): value is symbol
+   typedArray(value: any): value is TypedArray
+    undefined(value: any): value is void
 
        // logic
        or(...types: Asserter[]): Asserter
@@ -34,6 +37,10 @@ export interface tassert {
        not(...types: Asserter[]): Asserter
        xor(...types: Asserter[]): Asserter
 }
+
+type TypedArray = Int8Array | Int16Array | Int32Array | Uint8Array
+                | Uint16Array | Uint32Array | Uint8ClampedArray
+                | Float32Array | Float64Array
 
 const tassert: tassert = Object.assign(
   (assert: Asserter, value: any): void => {
@@ -56,7 +63,10 @@ const tassert: tassert = Object.assign(
          number: (value: any): value is number => isNumber(value),
          object: (value: any): value is number => isPlainObject(value),
          regexp: (value: any): value is number => isRegExp(value),
-         string: (value: any): value is string => isString(value)
+         string: (value: any): value is string => isString(value),
+         symbol: (value: any): value is symbol => isSymbol(value),
+     typedArray: (value: any): value is TypedArray => isTypedArray(value),
+      undefined: (value: any): value is void => isUndefined(value)
   },
 
   // logic

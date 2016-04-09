@@ -19,7 +19,10 @@ var tassert = Object.assign(function (assert, value) {
     number: function (value) { return lodash_1.isNumber(value); },
     object: function (value) { return lodash_1.isPlainObject(value); },
     regexp: function (value) { return lodash_1.isRegExp(value); },
-    string: function (value) { return lodash_1.isString(value); }
+    string: function (value) { return lodash_1.isString(value); },
+    symbol: function (value) { return lodash_1.isSymbol(value); },
+    typedArray: function (value) { return lodash_1.isTypedArray(value); },
+    undefined: function (value) { return lodash_1.isUndefined(value); }
 }, 
 // logic
 {
