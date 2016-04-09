@@ -16,8 +16,19 @@ var types = {
     string: function (value) { return lodash_1.isString(value); },
     symbol: function (value) { return lodash_1.isSymbol(value); },
     typedArray: function (value) { return lodash_1.isTypedArray(value); },
-    undefined: function (value) { return lodash_1.isUndefined(value); },
-    literal: function (gold) { return function (value) { return lodash_1.isEqual(gold, value); }; }
+    undefined: function (value) { return lodash_1.isUndefined(value); }
+};
+var customTypes = {
+    literal: function (gold, isDeep) {
+        if (isDeep === void 0) { isDeep = true; }
+        return function (value) {
+            return isDeep
+                ? lodash_1.isEqual(gold, value)
+                : types.nan(gold)
+                    ? types.nan(value)
+                    : gold === value;
+        };
+    }
 };
 var combinators = {
     or: function () {
@@ -43,7 +54,7 @@ var combinators = {
         return function (value) { return types.filter(function (t) { return t(value); }).length === 1; };
     }
 };
-var asserters = Object.assign({}, types, combinators);
+var asserters = Object.assign({}, types, customTypes, combinators);
 var tassert = Object.assign(function (assert, value) {
     if (!assert(value)) {
         throw new TypeError();

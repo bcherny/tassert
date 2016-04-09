@@ -163,7 +163,7 @@ test('undefined', t => {
 // literals
 //
 
-test('literal', t => {
+test('literal (deep)', t => {
   t.is(tassert(tassert.literal(42), 42), undefined)
   t.throws(() => tassert(tassert.literal(42), 40), TypeError)
   t.is(tassert(tassert.literal('foo'), 'foo'), undefined)
@@ -178,6 +178,26 @@ test('literal', t => {
   t.is(tassert(tassert.literal(NaN), NaN), undefined)
   t.throws(() => tassert(tassert.literal(NaN), undefined), TypeError)
   t.throws(() => tassert(tassert.literal(null), undefined), TypeError)
+})
+
+test('literal (shallow)', t => {
+  t.is(tassert(tassert.literal(42, false), 42), undefined)
+  t.throws(() => tassert(tassert.literal(42, false), 40), TypeError)
+  t.is(tassert(tassert.literal('foo', false), 'foo'), undefined)
+  t.throws(() => tassert(tassert.literal('foo', false), 'Foo'), TypeError)
+  const a = [1,2,3]
+  t.is(tassert(tassert.literal(a, false), a), undefined)
+  t.throws(() => tassert(tassert.literal([1,2], false), [1,2]), TypeError)
+  const b = [1,2,[3]]
+  t.is(tassert(tassert.literal(b, false), b), undefined)
+  t.throws(() => tassert(tassert.literal([1,[2]], false), [1,[2]]), TypeError)
+  const c = {a: 1, b:{c:2}}
+  t.is(tassert(tassert.literal(c, false), c), undefined)
+  t.throws(() => tassert(tassert.literal({a: 1}, false), {a: 1}), TypeError)
+  t.throws(() => tassert(tassert.literal(()=>{}, false), ()=>{}), TypeError)
+  t.is(tassert(tassert.literal(NaN, false), NaN), undefined)
+  t.throws(() => tassert(tassert.literal(NaN, false), undefined), TypeError)
+  t.throws(() => tassert(tassert.literal(null, false), undefined), TypeError)
 })
 
 //

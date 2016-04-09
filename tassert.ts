@@ -59,8 +59,16 @@ const types = {
        string: (value: any): value is string => isString(value),
        symbol: (value: any): value is symbol => isSymbol(value),
    typedArray: (value: any): value is TypedArray => isTypedArray(value),
-    undefined: (value: any): value is void => isUndefined(value),
-       literal: (gold: any) => (value: any): boolean => isEqual(gold, value)
+    undefined: (value: any): value is void => isUndefined(value)
+}
+
+const customTypes = {
+  literal: (gold: any, isDeep: boolean = true) => (value: any): boolean =>
+    isDeep
+    ? isEqual(gold, value)
+    : types.nan(gold)
+      ? types.nan(value)
+      : gold === value
 }
 
 const combinators = {
@@ -70,7 +78,7 @@ const combinators = {
   xor: (...types: Asserter[]): Asserter => (value: any) => types.filter(t => t(value)).length === 1
 }
 
-const asserters = Object.assign({}, types, combinators)
+const asserters = Object.assign({}, types, customTypes, combinators)
 
 const tassert: tassert = Object.assign(
   (assert: Asserter, value: any): void => {

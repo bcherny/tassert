@@ -39,7 +39,9 @@ t(99, t.or(t.number, t.string))
   - [ ] `WeakSet`
 - [ ] Constructors
 - [ ] Lazy constructors
-- [x] Literals (Deep by default)
+- [x] Literals
+  - [x] Shallow (`tassert.literal(42, false)`)
+  - [x] Deep (`tassert.literal(42)`)
 - [ ] Logic
   - [ ] `and`
   - [x] `or`
