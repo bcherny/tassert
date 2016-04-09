@@ -1,6 +1,7 @@
 import {
   isArray, isArrayBuffer, isBoolean, isBuffer, isDate, isError,
-  isFunction, isNaN, isNull, isNumber, isString
+  isFunction, isNaN, isNull, isNumber, isPlainObject, isRegExp,
+  isString
 } from 'lodash'
 
 export interface Asserter {
@@ -23,6 +24,8 @@ export interface tassert {
           nan(value: any): value is void
          null(value: any): value is void
        number(value: any): value is number
+       object(value: any): value is Object
+       regexp(value: any): value is RegExp
        string(value: any): value is string
 
        // logic
@@ -51,6 +54,8 @@ const tassert: tassert = Object.assign(
             nan: (value: any): value is void => isNaN(value),
            null: (value: any): value is void => isNull(value),
          number: (value: any): value is number => isNumber(value),
+         object: (value: any): value is number => isPlainObject(value),
+         regexp: (value: any): value is number => isRegExp(value),
          string: (value: any): value is string => isString(value)
   },
 

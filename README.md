@@ -25,11 +25,11 @@ t(99, t.or(t.number, t.string))
   - [x] `Error`
   - [x] `Function`
   - [ ] `Map`
-  - [ ] `NaN`
-  - [ ] `Null`
+  - [x] `NaN`
+  - [x] `Null`
   - [x] `Number`
-  - [ ] `Object`
-  - [ ] `RegExp`
+  - [x] `Object`
+  - [x] `RegExp`
   - [ ] `Set`
   - [x] `String`
   - [ ] `Symbol`

@@ -101,6 +101,24 @@ test('number', t => {
   t.throws(() => number('foo'), TypeError)
 })
 
+test('object', t => {
+  const object = tassert.bind(null, tassert.object)
+  t.is(object({}), undefined)
+  t.is(object({foo: 1}), undefined)
+  t.is(object({1: 2, 3: 4}), undefined)
+  t.is(object(new Object), undefined)
+  t.throws(() => object(new Date), TypeError)
+  t.throws(() => object(Date), TypeError)
+  t.throws(() => object([]), TypeError)
+})
+
+test('regexp', t => {
+  const regexp = tassert.bind(null, tassert.regexp)
+  t.is(regexp(/\w/), undefined)
+  t.is(regexp(new RegExp('\w', 'i')), undefined)
+  t.throws(() => regexp('\w'), TypeError)
+})
+
 test('string', t => {
   const string = tassert.bind(null, tassert.string)
   t.is(string(''), undefined)

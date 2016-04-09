@@ -17,6 +17,8 @@ var tassert = Object.assign(function (assert, value) {
     nan: function (value) { return lodash_1.isNaN(value); },
     null: function (value) { return lodash_1.isNull(value); },
     number: function (value) { return lodash_1.isNumber(value); },
+    object: function (value) { return lodash_1.isPlainObject(value); },
+    regexp: function (value) { return lodash_1.isRegExp(value); },
     string: function (value) { return lodash_1.isString(value); }
 }, 
 // logic
