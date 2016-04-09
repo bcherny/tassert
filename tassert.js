@@ -19,6 +19,7 @@ var types = {
     undefined: function (value) { return lodash_1.isUndefined(value); }
 };
 var customTypes = {
+    instanceOf: function (gold) { return function (value) { return value instanceof gold; }; },
     literal: function (gold, isDeep) {
         if (isDeep === void 0) { isDeep = true; }
         return function (value) {

@@ -31,6 +31,7 @@ export interface tassert {
    typedArray(value: any): value is TypedArray
     undefined(value: any): value is void
        literal(gold: any): (value: any) => boolean
+    instanceOf(gold: any): (value: any) => boolean
 
        // logic
        or(...types: Asserter[]): Asserter
@@ -63,6 +64,7 @@ const types = {
 }
 
 const customTypes = {
+  instanceOf: (gold: any) => (value: any): boolean => value instanceof gold,
   literal: (gold: any, isDeep: boolean = true) => (value: any): boolean =>
     isDeep
     ? isEqual(gold, value)

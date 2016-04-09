@@ -37,8 +37,7 @@ t(99, t.or(t.number, t.string))
   - [x] `Undefined`
   - [ ] `WeakMap`
   - [ ] `WeakSet`
-- [ ] Constructors
-- [ ] Lazy constructors
+- [x] Constructors (`tassert.instanceOf(Foo)`)
 - [x] Literals
   - [x] Shallow (`tassert.literal(42, false)`)
   - [x] Deep (`tassert.literal(42)`)

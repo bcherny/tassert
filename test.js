@@ -201,6 +201,22 @@ test('literal (shallow)', t => {
 })
 
 //
+// instanceOf
+//
+
+test('instanceOf', t => {
+  class Foo {}
+  class Bar extends Foo {}
+  class Baz {}
+  const inst = tassert.instanceOf(Foo)
+  t.is(tassert(inst, new Foo), undefined)
+  t.is(tassert(inst, new Bar), undefined)
+  t.throws(() => tassert(inst, Foo), TypeError)
+  t.throws(() => tassert(inst, Bar), TypeError)
+  t.throws(() => tassert(inst, new Baz), TypeError)
+})
+
+//
 // logic
 //
 
