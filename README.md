@@ -1,6 +1,4 @@
-# tassert
-
-[![Build Status][build]](https://circleci.com/gh/bcherny/tassert) [![npm]](https://www.npmjs.com/package/tassert) [![mit]](https://opensource.org/licenses/MIT)
+# tassert [![Build Status][build]](https://circleci.com/gh/bcherny/tassert) [![npm]](https://www.npmjs.com/package/tassert) [![mit]](https://opensource.org/licenses/MIT)
 
 [build]: https://img.shields.io/circleci/project/bcherny/tassert.svg?branch=master&style=flat-square
 [npm]: https://img.shields.io/npm/v/tassert.svg?style=flat-square
