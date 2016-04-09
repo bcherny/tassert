@@ -1,6 +1,6 @@
 import {
   isArray, isArrayBuffer, isBoolean, isBuffer, isDate, isError,
-  isFunction, isNumber, isString
+  isFunction, isNaN, isNull, isNumber, isString
 } from 'lodash'
 
 export interface Asserter {
@@ -20,6 +20,8 @@ export interface tassert {
          date(value: any): value is Date
         error(value: any): value is Error
      function(value: any): value is Function
+          nan(value: any): value is void
+         null(value: any): value is void
        number(value: any): value is number
        string(value: any): value is string
 
@@ -46,6 +48,8 @@ const tassert: tassert = Object.assign(
            date: (value: any): value is Date => isDate(value),
           error: (value: any): value is Error => isError(value),
        function: (value: any): value is Function => isFunction(value),
+            nan: (value: any): value is void => isNaN(value),
+           null: (value: any): value is void => isNull(value),
          number: (value: any): value is number => isNumber(value),
          string: (value: any): value is string => isString(value)
   },

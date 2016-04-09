@@ -14,6 +14,8 @@ var tassert = Object.assign(function (assert, value) {
     date: function (value) { return lodash_1.isDate(value); },
     error: function (value) { return lodash_1.isError(value); },
     function: function (value) { return lodash_1.isFunction(value); },
+    nan: function (value) { return lodash_1.isNaN(value); },
+    null: function (value) { return lodash_1.isNull(value); },
     number: function (value) { return lodash_1.isNumber(value); },
     string: function (value) { return lodash_1.isString(value); }
 }, 

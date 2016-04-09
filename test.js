@@ -70,6 +70,24 @@ test('function', t => {
   t.throws(() => fn({}), TypeError)
 })
 
+test('nan', t => {
+  const nan = tassert.bind(null, tassert.nan)
+  t.is(nan(NaN), undefined)
+  t.throws(() => nan(undefined), TypeError)
+  t.throws(() => nan(null), TypeError)
+  t.throws(() => nan(0), TypeError)
+  t.throws(() => nan(''), TypeError)
+})
+
+test('null', t => {
+  const n = tassert.bind(null, tassert.null)
+  t.is(n(null), undefined)
+  t.throws(() => n(undefined), TypeError)
+  t.throws(() => n(NaN), TypeError)
+  t.throws(() => n(0), TypeError)
+  t.throws(() => n(''), TypeError)
+})
+
 test('number', t => {
   const number = tassert.bind(null, tassert.number)
   t.is(number(42), undefined)
