@@ -1,6 +1,6 @@
 {
   "name": "tassert",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "High quality runtime assertions for Typescript",
   "main": "./tassert.js",
   "scripts": {

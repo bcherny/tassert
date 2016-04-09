@@ -2,22 +2,25 @@
 
 > High quality runtime assertions for Typescript
 
-**Pre-alpha - Not yet ready for use**
+**Alpha - ready for feedback**
 
 ## Usage
 
 ```ts
-import {default as t} from 'tassert'
+import t, {boolean, literal, number, or, string} from 'tassert'
 
-t(42, t.number)
-t('foo', t.string)
-t(99, t.or(t.number, t.string))
+t(number, 42)
+t(string, 'foo')
+t(or(boolean, number, string), 999)
+t(literal([1,2,3]), [1,2]) // Error!
 ```
 
 ## Features
 
 - [ ] Native types
-  - [x] `Array`
+  - [ ] `Array`
+    - [x] `Array<any>`
+    - [ ] `Array<A>`
   - [x] `ArrayBuffer`
   - [x] `Boolean`
   - [x] `Buffer`
@@ -25,18 +28,28 @@ t(99, t.or(t.number, t.string))
   - [x] `Error`
   - [x] `Function`
   - [ ] `Map`
+    - [ ] `Map<any, any>`
+    - [ ] `Map<A, B>`
   - [x] `NaN`
   - [x] `Null`
   - [x] `Number`
-  - [x] `Object`
+  - [ ] `Object`
+    - [x] `Object<any, any>`
+    - [ ] `Object<A, B>`
   - [x] `RegExp`
   - [ ] `Set`
+    - [ ] `Set<any>`
+    - [ ] `Set<A>`
   - [x] `String`
   - [x] `Symbol`
   - [x] `TypedArray`
   - [x] `Undefined`
   - [ ] `WeakMap`
+    - [ ] `WeakMap<any, any>`
+    - [ ] `WeakMap<A, B>`
   - [ ] `WeakSet`
+    - [ ] `WeakSet<any>`
+    - [ ] `WeakSet<A>`
 - [x] Constructors (`tassert.instanceOf(Foo)`)
 - [x] Literals
   - [x] Shallow (`tassert.literal(42, false)`)
