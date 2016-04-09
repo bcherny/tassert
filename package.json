@@ -1,10 +1,12 @@
 {
   "name": "tassert",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "High quality runtime assertions for Typescript",
   "main": "./tassert.js",
+  "main:esnext": "./tassert.es6.js",
+  "typings": "./tassert.d.ts",
   "scripts": {
-    "build": "tsc -d",
+    "build": "tsc -d -m es2015 --outDir .; mv ./tassert.js ./tassert.es6.js; tsc -t es5 -m commonjs --outDir .;",
     "watch": "tsc -w",
     "test": "ava",
     "tdd": "npm test -- --watch",
@@ -14,7 +16,6 @@
     "type": "git",
     "url": "git+ssh://git@github.com/bcherny/tassert.git"
   },
-  "typings": "./tassert.d.ts",
   "keywords": [
     "assert",
     "typescript",

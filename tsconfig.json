@@ -5,8 +5,8 @@
     "noImplicitAny": true,
     "preserveConstEnums": true,
     "outDir": ".",
-    "sourceMap": true,
-    "target": "es5"
+    "sourceMap": false,
+    "target": "es6"
   },
   "files": [
     "./typings/main.d.ts",
