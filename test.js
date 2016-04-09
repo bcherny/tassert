@@ -160,6 +160,27 @@ test('undefined', t => {
 })
 
 //
+// literals
+//
+
+test('literal', t => {
+  t.is(tassert(tassert.literal(42), 42), undefined)
+  t.throws(() => tassert(tassert.literal(42), 40), TypeError)
+  t.is(tassert(tassert.literal('foo'), 'foo'), undefined)
+  t.throws(() => tassert(tassert.literal('foo'), 'Foo'), TypeError)
+  t.is(tassert(tassert.literal([1,2,3]), [1,2,3]), undefined)
+  t.throws(() => tassert(tassert.literal([1]), [1,2]), TypeError)
+  t.is(tassert(tassert.literal([1,2,[3]]), [1,2,[3]]), undefined)
+  t.throws(() => tassert(tassert.literal([1,2]), [1,[2]]), TypeError)
+  t.is(tassert(tassert.literal({a: 1, b:{c:2}}), {a: 1, b:{c:2}}), undefined)
+  t.throws(() => tassert(tassert.literal({a: 1, b:{c:2}}), {a: 1, b:{c:2, d:3}}), TypeError)
+  t.throws(() => tassert(tassert.literal(()=>{}), ()=>{}), TypeError)
+  t.is(tassert(tassert.literal(NaN), NaN), undefined)
+  t.throws(() => tassert(tassert.literal(NaN), undefined), TypeError)
+  t.throws(() => tassert(tassert.literal(null), undefined), TypeError)
+})
+
+//
 // logic
 //
 

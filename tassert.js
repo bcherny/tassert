@@ -1,12 +1,6 @@
 "use strict";
 var lodash_1 = require('lodash');
-var tassert = Object.assign(function (assert, value) {
-    if (!assert(value)) {
-        throw new TypeError();
-    }
-}, 
-// types
-{
+var types = {
     array: function (value) { return lodash_1.isArray(value); },
     arrayBuffer: function (value) { return lodash_1.isArrayBuffer(value); },
     boolean: function (value) { return lodash_1.isBoolean(value); },
@@ -22,10 +16,10 @@ var tassert = Object.assign(function (assert, value) {
     string: function (value) { return lodash_1.isString(value); },
     symbol: function (value) { return lodash_1.isSymbol(value); },
     typedArray: function (value) { return lodash_1.isTypedArray(value); },
-    undefined: function (value) { return lodash_1.isUndefined(value); }
-}, 
-// logic
-{
+    undefined: function (value) { return lodash_1.isUndefined(value); },
+    literal: function (gold) { return function (value) { return lodash_1.isEqual(gold, value); }; }
+};
+var combinators = {
     or: function () {
         var types = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -48,7 +42,13 @@ var tassert = Object.assign(function (assert, value) {
         }
         return function (value) { return types.filter(function (t) { return t(value); }).length === 1; };
     }
-});
+};
+var asserters = Object.assign({}, types, combinators);
+var tassert = Object.assign(function (assert, value) {
+    if (!assert(value)) {
+        throw new TypeError();
+    }
+}, asserters);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = tassert;
 //# sourceMappingURL=tassert.js.map

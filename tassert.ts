@@ -1,7 +1,7 @@
 import {
-  isArray, isArrayBuffer, isBoolean, isBuffer, isDate, isError,
+  isArray, isArrayBuffer, isBoolean, isBuffer, isDate, isEqual, isError,
   isFunction, isNaN, isNull, isNumber, isPlainObject, isRegExp,
-  isString, isSymbol, isTypedArray, isUndefined
+  isString, isSymbol, isTypedArray, isUndefined, includes, values
 } from 'lodash'
 
 export interface Asserter {
@@ -30,6 +30,7 @@ export interface tassert {
        symbol(value: any): value is symbol
    typedArray(value: any): value is TypedArray
     undefined(value: any): value is void
+       literal(gold: any): (value: any) => boolean
 
        // logic
        or(...types: Asserter[]): Asserter
@@ -42,40 +43,40 @@ type TypedArray = Int8Array | Int16Array | Int32Array | Uint8Array
                 | Uint16Array | Uint32Array | Uint8ClampedArray
                 | Float32Array | Float64Array
 
+const types = {
+        array: (value: any): value is Array<any> => isArray(value),
+  arrayBuffer: (value: any): value is ArrayBuffer => isArrayBuffer(value),
+      boolean: (value: any): value is boolean => isBoolean(value),
+       buffer: (value: any): value is Buffer => isBuffer(value),
+         date: (value: any): value is Date => isDate(value),
+        error: (value: any): value is Error => isError(value),
+     function: (value: any): value is Function => isFunction(value),
+          nan: (value: any): value is void => isNaN(value),
+         null: (value: any): value is void => isNull(value),
+       number: (value: any): value is number => isNumber(value),
+       object: (value: any): value is number => isPlainObject(value),
+       regexp: (value: any): value is number => isRegExp(value),
+       string: (value: any): value is string => isString(value),
+       symbol: (value: any): value is symbol => isSymbol(value),
+   typedArray: (value: any): value is TypedArray => isTypedArray(value),
+    undefined: (value: any): value is void => isUndefined(value),
+       literal: (gold: any) => (value: any): boolean => isEqual(gold, value)
+}
+
+const combinators = {
+   or: (...types: Asserter[]): Asserter => (value: any) => types.some(t => t(value)),
+  and: (...types: Asserter[]): Asserter => (value: any) => types.every(t => t(value)),
+  not: (type: Asserter): Asserter => (value: any) => !type(value),
+  xor: (...types: Asserter[]): Asserter => (value: any) => types.filter(t => t(value)).length === 1
+}
+
+const asserters = Object.assign({}, types, combinators)
+
 const tassert: tassert = Object.assign(
   (assert: Asserter, value: any): void => {
     if (!assert(value)) {
       throw new TypeError()
     }
-  },
-
-  // types
-  {
-          array: (value: any): value is Array<any> => isArray(value),
-    arrayBuffer: (value: any): value is ArrayBuffer => isArrayBuffer(value),
-        boolean: (value: any): value is boolean => isBoolean(value),
-         buffer: (value: any): value is Buffer => isBuffer(value),
-           date: (value: any): value is Date => isDate(value),
-          error: (value: any): value is Error => isError(value),
-       function: (value: any): value is Function => isFunction(value),
-            nan: (value: any): value is void => isNaN(value),
-           null: (value: any): value is void => isNull(value),
-         number: (value: any): value is number => isNumber(value),
-         object: (value: any): value is number => isPlainObject(value),
-         regexp: (value: any): value is number => isRegExp(value),
-         string: (value: any): value is string => isString(value),
-         symbol: (value: any): value is symbol => isSymbol(value),
-     typedArray: (value: any): value is TypedArray => isTypedArray(value),
-      undefined: (value: any): value is void => isUndefined(value)
-  },
-
-  // logic
-  {
-     or: (...types: Asserter[]): Asserter => (value: any) => types.some(t => t(value)),
-    and: (...types: Asserter[]): Asserter => (value: any) => types.every(t => t(value)),
-    not: (type: Asserter): Asserter => (value: any) => !type(value),
-    xor: (...types: Asserter[]): Asserter => (value: any) => types.filter(t => t(value)).length === 1
-  }
-)
+  }, asserters)
 
 export default tassert
