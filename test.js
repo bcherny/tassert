@@ -204,9 +204,44 @@ test('literal (shallow)', t => {
 // logic
 //
 
+test('and', t => {
+  const and = tassert.and(tassert.literal(42), tassert.number)
+  t.is(tassert(and, 42), undefined)
+  t.throws(() => tassert(and, 41), TypeError)
+  t.throws(() => tassert(and, '42'), TypeError)
+})
+
 test('or', t => {
   const numberOrString = tassert.or(tassert.number, tassert.string)
   t.is(tassert(numberOrString, 'foo'), undefined)
   t.is(tassert(numberOrString, 42), undefined)
   t.throws(() => tassert(numberOrString, {}), TypeError)
+})
+
+test('not', t => {
+  const not = tassert.not(tassert.number)
+  t.is(tassert(not, 'foo'), undefined)
+  t.is(tassert(not, []), undefined)
+  t.throws(() => tassert(not, 42), TypeError)
+  t.throws(() => tassert(not, -Infinity), TypeError)
+})
+
+test('xor', t => {
+  const xor = tassert.xor(tassert.literal(42), tassert.number)
+  t.is(tassert(xor, 41), undefined)
+  t.throws(() => tassert(xor, 42), TypeError)
+  t.throws(() => tassert(xor, '42'), TypeError)
+})
+
+test('complex logic', t => {
+  const a = tassert.and(
+    tassert.number,
+    tassert.not(tassert.literal(42)),
+    tassert.not(tassert.nan)
+  )
+  t.is(tassert(a, -6321312.97), undefined)
+  t.is(tassert(a, 41), undefined)
+  t.throws(() => tassert(a, 42), TypeError)
+  t.throws(() => tassert(a, NaN), TypeError)
+  t.throws(() => tassert(a, 'foo'), TypeError)
 })

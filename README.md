@@ -42,11 +42,11 @@ t(99, t.or(t.number, t.string))
 - [x] Literals
   - [x] Shallow (`tassert.literal(42, false)`)
   - [x] Deep (`tassert.literal(42)`)
-- [ ] Logic
-  - [ ] `and`
-  - [x] `or`
-  - [ ] `not`
-  - [ ] `xor`
+- [x] Logic
+  - [x] `and` (`tassert.and(tassert.literal(42), tassert.number)`)
+  - [x] `or` (`tassert.or(tassert.string, tassert.number, tassert.array)`)
+  - [x] `not` (`tassert.or(tassert.string, not(tassert.string('foo')))`)
+  - [x] `xor` (`tassert.xor(tassert.literal(42), tassert.number)`)
 - [ ] Comparators
   - [x] ==
   - [ ] >
