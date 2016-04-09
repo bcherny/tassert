@@ -8,6 +8,10 @@
 
 **Alpha - ready for feedback**
 
+## Installation
+
+`npm install -S tassert`
+
 ## Usage
 
 ```ts
