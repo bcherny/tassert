@@ -11,7 +11,7 @@ export interface Asserter {
 export interface tassert {
 
   // main
-  (value: any, type: Asserter): void
+  (assert: Asserter, value: any): void
 
   // types
         array(value: any): value is Array<any>

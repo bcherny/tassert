@@ -2,7 +2,7 @@ export interface Asserter {
     (value: any): boolean;
 }
 export interface tassert {
-    (value: any, type: Asserter): void;
+    (assert: Asserter, value: any): void;
     array(value: any): value is Array<any>;
     arrayBuffer(value: any): value is ArrayBuffer;
     boolean(value: any): value is boolean;
