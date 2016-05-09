@@ -1,31 +1,28 @@
 export interface Asserter {
     (value: any): boolean;
 }
-export interface tassert {
-    (assert: Asserter, value: any): void;
-    array(value: any): value is Array<any>;
-    arrayBuffer(value: any): value is ArrayBuffer;
-    boolean(value: any): value is boolean;
-    buffer(value: any): value is Buffer;
-    date(value: any): value is Date;
-    error(value: any): value is Error;
-    function(value: any): value is Function;
-    nan(value: any): value is void;
-    null(value: any): value is void;
-    number(value: any): value is number;
-    object(value: any): value is Object;
-    regexp(value: any): value is RegExp;
-    string(value: any): value is string;
-    symbol(value: any): value is symbol;
-    typedArray(value: any): value is TypedArray;
-    undefined(value: any): value is void;
-    literal(gold: any): (value: any) => boolean;
-    instanceOf(gold: any): (value: any) => boolean;
-    or(...types: Asserter[]): Asserter;
-    and(...types: Asserter[]): Asserter;
-    not(...types: Asserter[]): Asserter;
-    xor(...types: Asserter[]): Asserter;
-}
 export declare type TypedArray = Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
-declare const tassert: tassert;
-export default tassert;
+export declare const array: (value: any) => value is any[];
+export declare const arrayBuffer: (value: any) => value is ArrayBuffer;
+export declare const boolean: (value: any) => value is boolean;
+export declare const buffer: (value: any) => value is Buffer;
+export declare const date: (value: any) => value is Date;
+export declare const error: (value: any) => value is Error;
+export declare const Function: (value: any) => value is Function;
+export declare const nan: (value: any) => value is void;
+export declare const Null: (value: any) => value is void;
+export declare const number: (value: any) => value is number;
+export declare const object: (value: any) => value is number;
+export declare const regexp: (value: any) => value is number;
+export declare const string: (value: any) => value is string;
+export declare const symbol: (value: any) => value is symbol;
+export declare const typedArray: (value: any) => value is Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
+export declare const Undefined: (value: any) => value is void;
+export declare const instanceOf: (gold: any) => (value: any) => boolean;
+export declare const literal: (gold: any, isDeep?: boolean) => (value: any) => boolean;
+export declare const or: (...types: Asserter[]) => Asserter;
+export declare const and: (...types: Asserter[]) => Asserter;
+export declare const not: (type: Asserter) => Asserter;
+export declare const xor: (...types: Asserter[]) => Asserter;
+declare var _default: (assert: Asserter, value: any) => void;
+export default _default;

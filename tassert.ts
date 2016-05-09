@@ -8,85 +8,46 @@ export interface Asserter {
   (value: any): boolean
 }
 
-export interface tassert {
-
-  // main
-  (assert: Asserter, value: any): void
-
-  // types
-        array(value: any): value is Array<any>
-  arrayBuffer(value: any): value is ArrayBuffer
-      boolean(value: any): value is boolean
-       buffer(value: any): value is Buffer
-         date(value: any): value is Date
-        error(value: any): value is Error
-     function(value: any): value is Function
-          nan(value: any): value is void
-         null(value: any): value is void
-       number(value: any): value is number
-       object(value: any): value is Object
-       regexp(value: any): value is RegExp
-       string(value: any): value is string
-       symbol(value: any): value is symbol
-   typedArray(value: any): value is TypedArray
-    undefined(value: any): value is void
-       literal(gold: any): (value: any) => boolean
-    instanceOf(gold: any): (value: any) => boolean
-
-       // logic
-       or(...types: Asserter[]): Asserter
-       and(...types: Asserter[]): Asserter
-       not(...types: Asserter[]): Asserter
-       xor(...types: Asserter[]): Asserter
-}
-
 export type TypedArray = Int8Array | Int16Array | Int32Array | Uint8Array
                 | Uint16Array | Uint32Array | Uint8ClampedArray
                 | Float32Array | Float64Array
 
-const types = {
-        array: (value: any): value is Array<any> => isArray(value),
-  arrayBuffer: (value: any): value is ArrayBuffer => isArrayBuffer(value),
-      boolean: (value: any): value is boolean => isBoolean(value),
-       buffer: (value: any): value is Buffer => isBuffer(value),
-         date: (value: any): value is Date => isDate(value),
-        error: (value: any): value is Error => isError(value),
-     function: (value: any): value is Function => isFunction(value),
-          nan: (value: any): value is void => isNaN(value),
-         null: (value: any): value is void => isNull(value),
-       number: (value: any): value is number => isNumber(value),
-       object: (value: any): value is number => isPlainObject(value),
-       regexp: (value: any): value is number => isRegExp(value),
-       string: (value: any): value is string => isString(value),
-       symbol: (value: any): value is symbol => isSymbol(value),
-   typedArray: (value: any): value is TypedArray => isTypedArray(value),
-    undefined: (value: any): value is void => isUndefined(value)
+// basic types
+export const array = (value: any): value is Array<any> => isArray(value)
+export const arrayBuffer = (value: any): value is ArrayBuffer => isArrayBuffer(value)
+export const boolean = (value: any): value is boolean => isBoolean(value)
+export const buffer = (value: any): value is Buffer => isBuffer(value)
+export const date = (value: any): value is Date => isDate(value)
+export const error = (value: any): value is Error => isError(value)
+export const Function = (value: any): value is Function => isFunction(value)
+export const nan = (value: any): value is void => isNaN(value)
+export const Null = (value: any): value is void => isNull(value)
+export const number = (value: any): value is number => isNumber(value)
+export const object = (value: any): value is number => isPlainObject(value)
+export const regexp = (value: any): value is number => isRegExp(value)
+export const string = (value: any): value is string => isString(value)
+export const symbol = (value: any): value is symbol => isSymbol(value)
+export const typedArray = (value: any): value is TypedArray => isTypedArray(value)
+export const Undefined = (value: any): value is void => isUndefined(value)
+
+// custom
+export const instanceOf = (gold: any) => (value: any): boolean => value instanceof gold
+export const literal = (gold: any, isDeep: boolean = true) => (value: any): boolean =>
+  isDeep
+  ? isEqual(gold, value)
+  : nan(gold)
+    ? nan(value)
+    : gold === value
+
+// combinators
+export const or = (...types: Asserter[]): Asserter => (value: any) => types.some(t => t(value))
+export const and = (...types: Asserter[]): Asserter => (value: any) => types.every(t => t(value))
+export const not = (type: Asserter): Asserter => (value: any) => !type(value)
+export const xor = (...types: Asserter[]): Asserter => (value: any) => types.filter(t => t(value)).length === 1
+
+// tassert
+export default (assert: Asserter, value: any): void => {
+  if (!assert(value)) {
+    throw new TypeError()
+  }
 }
-
-const customTypes = {
-  instanceOf: (gold: any) => (value: any): boolean => value instanceof gold,
-  literal: (gold: any, isDeep: boolean = true) => (value: any): boolean =>
-    isDeep
-    ? isEqual(gold, value)
-    : types.nan(gold)
-      ? types.nan(value)
-      : gold === value
-}
-
-const combinators = {
-   or: (...types: Asserter[]): Asserter => (value: any) => types.some(t => t(value)),
-  and: (...types: Asserter[]): Asserter => (value: any) => types.every(t => t(value)),
-  not: (type: Asserter): Asserter => (value: any) => !type(value),
-  xor: (...types: Asserter[]): Asserter => (value: any) => types.filter(t => t(value)).length === 1
-}
-
-const asserters = Object.assign({}, types, customTypes, combinators)
-
-const tassert: tassert = Object.assign(
-  (assert: Asserter, value: any): void => {
-    if (!assert(value)) {
-      throw new TypeError()
-    }
-  }, asserters)
-
-export default tassert
