@@ -1,50 +1,55 @@
 import test from 'ava'
-import tassert from './'
+import tassert, {
+  array, arrayBuffer, boolean, buffer, date, error,
+  Function as fn, nan, Null, number, object, regexp,
+  string, Undefined, symbol, typedArray, literal,
+  instanceOf, and, or, not, xor
+} from './tassert'
 
 //
 // types
 //
 
 test('array', t => {
-  const array = tassert.bind(null, tassert.array)
-  t.is(array([]), undefined)
-  t.is(array([1,2,3]), undefined)
-  t.is(array(new Array(6)), undefined)
-  t.throws(() => array({}), TypeError)
-  t.throws(() => array(new ArrayBuffer), TypeError)
-  t.throws(() => array({length: 12}), TypeError)
+  const a = tassert.bind(null, array)
+  t.is(a([]), undefined)
+  t.is(a([1,2,3]), undefined)
+  t.is(a(new Array(6)), undefined)
+  t.throws(() => a({}), TypeError)
+  t.throws(() => a(new ArrayBuffer), TypeError)
+  t.throws(() => a({length: 12}), TypeError)
 })
 
 test('arrayBuffer', t => {
-  const array = tassert.bind(null, tassert.arrayBuffer)
-  t.is(array(new ArrayBuffer), undefined)
-  t.throws(() => array({}), TypeError)
-  t.throws(() => array([]), TypeError)
-  t.throws(() => array({length: 12}), TypeError)
+  const a = tassert.bind(null, arrayBuffer)
+  t.is(a(new ArrayBuffer), undefined)
+  t.throws(() => a({}), TypeError)
+  t.throws(() => a([]), TypeError)
+  t.throws(() => a({length: 12}), TypeError)
 })
 
 test('boolean', t => {
-  const boolean = tassert.bind(null, tassert.boolean)
-  t.is(boolean(true), undefined)
-  t.is(boolean(false), undefined)
-  t.is(boolean(new Boolean(true)), undefined)
-  t.throws(() => boolean(undefined), TypeError)
-  t.throws(() => boolean(null), TypeError)
-  t.throws(() => boolean(42), TypeError)
+  const a = tassert.bind(null, boolean)
+  t.is(a(true), undefined)
+  t.is(a(false), undefined)
+  t.is(a(new Boolean(true)), undefined)
+  t.throws(() => a(undefined), TypeError)
+  t.throws(() => a(null), TypeError)
+  t.throws(() => a(42), TypeError)
 })
 
 test('buffer', t => {
-  const buffer = tassert.bind(null, tassert.buffer)
-  t.is(buffer(new Buffer(10)), undefined)
-  t.throws(() => buffer({}), TypeError)
-  t.throws(() => buffer([]), TypeError)
+  const a = tassert.bind(null, buffer)
+  t.is(a(new Buffer(10)), undefined)
+  t.throws(() => a({}), TypeError)
+  t.throws(() => a([]), TypeError)
 })
 
 test('date', t => {
-  const date = tassert.bind(null, tassert.date)
-  t.is(date(new Date), undefined)
-  t.throws(() => date(new Date().toISOString()), TypeError)
-  t.throws(() => date([]), TypeError)
+  const a = tassert.bind(null, date)
+  t.is(a(new Date), undefined)
+  t.throws(() => a(new Date().toISOString()), TypeError)
+  t.throws(() => a([]), TypeError)
 })
 
 test('element', t => {
@@ -52,35 +57,35 @@ test('element', t => {
 })
 
 test('error', t => {
-  const error = tassert.bind(null, tassert.error)
+  const a = tassert.bind(null, error)
   class CustomError extends TypeError {}
-  t.is(error(new Error), undefined)
-  t.is(error(new TypeError('foo')), undefined)
-  t.is(error(new CustomError('ok')), undefined)
-  t.throws(() => error(new Date()), TypeError)
-  t.throws(() => error({}), TypeError)
+  t.is(a(new Error), undefined)
+  t.is(a(new TypeError('foo')), undefined)
+  t.is(a(new CustomError('ok')), undefined)
+  t.throws(() => a(new Date()), TypeError)
+  t.throws(() => a({}), TypeError)
 })
 
 test('function', t => {
-  const fn = tassert.bind(null, tassert.function)
-  t.is(fn(function(){}), undefined)
-  t.is(fn(() => {}), undefined)
-  t.is(fn(new Function), undefined)
-  t.is(fn(Date), undefined)
-  t.throws(() => fn({}), TypeError)
+  const a = tassert.bind(null, fn)
+  t.is(a(function(){}), undefined)
+  t.is(a(() => {}), undefined)
+  t.is(a(new Function), undefined)
+  t.is(a(Date), undefined)
+  t.throws(() => a({}), TypeError)
 })
 
 test('nan', t => {
-  const nan = tassert.bind(null, tassert.nan)
-  t.is(nan(NaN), undefined)
-  t.throws(() => nan(undefined), TypeError)
-  t.throws(() => nan(null), TypeError)
-  t.throws(() => nan(0), TypeError)
-  t.throws(() => nan(''), TypeError)
+  const a = tassert.bind(null, nan)
+  t.is(a(NaN), undefined)
+  t.throws(() => a(undefined), TypeError)
+  t.throws(() => a(null), TypeError)
+  t.throws(() => a(0), TypeError)
+  t.throws(() => a(''), TypeError)
 })
 
 test('null', t => {
-  const n = tassert.bind(null, tassert.null)
+  const n = tassert.bind(null, Null)
   t.is(n(null), undefined)
   t.throws(() => n(undefined), TypeError)
   t.throws(() => n(NaN), TypeError)
@@ -89,54 +94,54 @@ test('null', t => {
 })
 
 test('number', t => {
-  const number = tassert.bind(null, tassert.number)
-  t.is(number(42), undefined)
-  t.is(number(0), undefined)
-  t.is(number(-0), undefined)
-  t.is(number(NaN), undefined)
-  t.is(number(-Infinity), undefined)
-  t.is(number(+Infinity), undefined)
-  t.is(number(3242.43423423423), undefined)
-  t.is(number(new Number(-99.0)), undefined)
-  t.throws(() => number('foo'), TypeError)
+  const a = tassert.bind(null, number)
+  t.is(a(42), undefined)
+  t.is(a(0), undefined)
+  t.is(a(-0), undefined)
+  t.is(a(NaN), undefined)
+  t.is(a(-Infinity), undefined)
+  t.is(a(+Infinity), undefined)
+  t.is(a(3242.43423423423), undefined)
+  t.is(a(new Number(-99.0)), undefined)
+  t.throws(() => a('foo'), TypeError)
 })
 
 test('object', t => {
-  const object = tassert.bind(null, tassert.object)
-  t.is(object({}), undefined)
-  t.is(object({foo: 1}), undefined)
-  t.is(object({1: 2, 3: 4}), undefined)
-  t.is(object(new Object), undefined)
-  t.throws(() => object(new Date), TypeError)
-  t.throws(() => object(Date), TypeError)
-  t.throws(() => object([]), TypeError)
+  const a = tassert.bind(null, object)
+  t.is(a({}), undefined)
+  t.is(a({foo: 1}), undefined)
+  t.is(a({1: 2, 3: 4}), undefined)
+  t.is(a(new Object), undefined)
+  t.throws(() => a(new Date), TypeError)
+  t.throws(() => a(Date), TypeError)
+  t.throws(() => a([]), TypeError)
 })
 
 test('regexp', t => {
-  const regexp = tassert.bind(null, tassert.regexp)
-  t.is(regexp(/\w/), undefined)
-  t.is(regexp(new RegExp('\w', 'i')), undefined)
-  t.throws(() => regexp('\w'), TypeError)
+  const a = tassert.bind(null, regexp)
+  t.is(a(/\w/), undefined)
+  t.is(a(new RegExp('\w', 'i')), undefined)
+  t.throws(() => a('\w'), TypeError)
 })
 
 test('string', t => {
-  const string = tassert.bind(null, tassert.string)
-  t.is(string(''), undefined)
-  t.is(string('foo'), undefined)
-  t.is(string(new String('foo')), undefined)
-  t.throws(() => string(42), TypeError)
+  const a = tassert.bind(null, string)
+  t.is(a(''), undefined)
+  t.is(a('foo'), undefined)
+  t.is(a(new String('foo')), undefined)
+  t.throws(() => a(42), TypeError)
 })
 
 test('symbol', t => {
-  const symbol = tassert.bind(null, tassert.symbol)
-  t.is(symbol(Symbol()), undefined)
-  t.is(symbol(Symbol('ok')), undefined)
-  t.is(symbol(Symbol.iterator), undefined)
-  t.throws(() => symbol('foo'), TypeError)
+  const a = tassert.bind(null, symbol)
+  t.is(a(Symbol()), undefined)
+  t.is(a(Symbol('ok')), undefined)
+  t.is(a(Symbol.iterator), undefined)
+  t.throws(() => a('foo'), TypeError)
 })
 
 test('typedArray', t => {
-  const ta = tassert.bind(null, tassert.typedArray)
+  const ta = tassert.bind(null, typedArray)
   t.is(ta(new Uint8Array), undefined)
   t.is(ta(new Uint16Array), undefined)
   t.is(ta(new Uint32Array), undefined)
@@ -150,7 +155,7 @@ test('typedArray', t => {
 })
 
 test('undefined', t => {
-  const u = tassert.bind(null, tassert.undefined)
+  const u = tassert.bind(null, Undefined)
   t.is(u(undefined), undefined)
   t.is(u(void 0), undefined)
   t.throws(() => u(null), TypeError)
@@ -164,40 +169,40 @@ test('undefined', t => {
 //
 
 test('literal (deep)', t => {
-  t.is(tassert(tassert.literal(42), 42), undefined)
-  t.throws(() => tassert(tassert.literal(42), 40), TypeError)
-  t.is(tassert(tassert.literal('foo'), 'foo'), undefined)
-  t.throws(() => tassert(tassert.literal('foo'), 'Foo'), TypeError)
-  t.is(tassert(tassert.literal([1,2,3]), [1,2,3]), undefined)
-  t.throws(() => tassert(tassert.literal([1]), [1,2]), TypeError)
-  t.is(tassert(tassert.literal([1,2,[3]]), [1,2,[3]]), undefined)
-  t.throws(() => tassert(tassert.literal([1,2]), [1,[2]]), TypeError)
-  t.is(tassert(tassert.literal({a: 1, b:{c:2}}), {a: 1, b:{c:2}}), undefined)
-  t.throws(() => tassert(tassert.literal({a: 1, b:{c:2}}), {a: 1, b:{c:2, d:3}}), TypeError)
-  t.throws(() => tassert(tassert.literal(()=>{}), ()=>{}), TypeError)
-  t.is(tassert(tassert.literal(NaN), NaN), undefined)
-  t.throws(() => tassert(tassert.literal(NaN), undefined), TypeError)
-  t.throws(() => tassert(tassert.literal(null), undefined), TypeError)
+  t.is(tassert(literal(42), 42), undefined)
+  t.throws(() => tassert(literal(42), 40), TypeError)
+  t.is(tassert(literal('foo'), 'foo'), undefined)
+  t.throws(() => tassert(literal('foo'), 'Foo'), TypeError)
+  t.is(tassert(literal([1,2,3]), [1,2,3]), undefined)
+  t.throws(() => tassert(literal([1]), [1,2]), TypeError)
+  t.is(tassert(literal([1,2,[3]]), [1,2,[3]]), undefined)
+  t.throws(() => tassert(literal([1,2]), [1,[2]]), TypeError)
+  t.is(tassert(literal({a: 1, b:{c:2}}), {a: 1, b:{c:2}}), undefined)
+  t.throws(() => tassert(literal({a: 1, b:{c:2}}), {a: 1, b:{c:2, d:3}}), TypeError)
+  t.throws(() => tassert(literal(()=>{}), ()=>{}), TypeError)
+  t.is(tassert(literal(NaN), NaN), undefined)
+  t.throws(() => tassert(literal(NaN), undefined), TypeError)
+  t.throws(() => tassert(literal(null), undefined), TypeError)
 })
 
 test('literal (shallow)', t => {
-  t.is(tassert(tassert.literal(42, false), 42), undefined)
-  t.throws(() => tassert(tassert.literal(42, false), 40), TypeError)
-  t.is(tassert(tassert.literal('foo', false), 'foo'), undefined)
-  t.throws(() => tassert(tassert.literal('foo', false), 'Foo'), TypeError)
+  t.is(tassert(literal(42, false), 42), undefined)
+  t.throws(() => tassert(literal(42, false), 40), TypeError)
+  t.is(tassert(literal('foo', false), 'foo'), undefined)
+  t.throws(() => tassert(literal('foo', false), 'Foo'), TypeError)
   const a = [1,2,3]
-  t.is(tassert(tassert.literal(a, false), a), undefined)
-  t.throws(() => tassert(tassert.literal([1,2], false), [1,2]), TypeError)
+  t.is(tassert(literal(a, false), a), undefined)
+  t.throws(() => tassert(literal([1,2], false), [1,2]), TypeError)
   const b = [1,2,[3]]
-  t.is(tassert(tassert.literal(b, false), b), undefined)
-  t.throws(() => tassert(tassert.literal([1,[2]], false), [1,[2]]), TypeError)
+  t.is(tassert(literal(b, false), b), undefined)
+  t.throws(() => tassert(literal([1,[2]], false), [1,[2]]), TypeError)
   const c = {a: 1, b:{c:2}}
-  t.is(tassert(tassert.literal(c, false), c), undefined)
-  t.throws(() => tassert(tassert.literal({a: 1}, false), {a: 1}), TypeError)
-  t.throws(() => tassert(tassert.literal(()=>{}, false), ()=>{}), TypeError)
-  t.is(tassert(tassert.literal(NaN, false), NaN), undefined)
-  t.throws(() => tassert(tassert.literal(NaN, false), undefined), TypeError)
-  t.throws(() => tassert(tassert.literal(null, false), undefined), TypeError)
+  t.is(tassert(literal(c, false), c), undefined)
+  t.throws(() => tassert(literal({a: 1}, false), {a: 1}), TypeError)
+  t.throws(() => tassert(literal(()=>{}, false), ()=>{}), TypeError)
+  t.is(tassert(literal(NaN, false), NaN), undefined)
+  t.throws(() => tassert(literal(NaN, false), undefined), TypeError)
+  t.throws(() => tassert(literal(null, false), undefined), TypeError)
 })
 
 //
@@ -208,7 +213,7 @@ test('instanceOf', t => {
   class Foo {}
   class Bar extends Foo {}
   class Baz {}
-  const inst = tassert.instanceOf(Foo)
+  const inst = instanceOf(Foo)
   t.is(tassert(inst, new Foo), undefined)
   t.is(tassert(inst, new Bar), undefined)
   t.throws(() => tassert(inst, Foo), TypeError)
@@ -221,39 +226,39 @@ test('instanceOf', t => {
 //
 
 test('and', t => {
-  const and = tassert.and(tassert.literal(42), tassert.number)
-  t.is(tassert(and, 42), undefined)
-  t.throws(() => tassert(and, 41), TypeError)
-  t.throws(() => tassert(and, '42'), TypeError)
+  const a = and(literal(42), number)
+  t.is(tassert(a, 42), undefined)
+  t.throws(() => tassert(a, 41), TypeError)
+  t.throws(() => tassert(a, '42'), TypeError)
 })
 
 test('or', t => {
-  const numberOrString = tassert.or(tassert.number, tassert.string)
+  const numberOrString = or(number, string)
   t.is(tassert(numberOrString, 'foo'), undefined)
   t.is(tassert(numberOrString, 42), undefined)
   t.throws(() => tassert(numberOrString, {}), TypeError)
 })
 
 test('not', t => {
-  const not = tassert.not(tassert.number)
-  t.is(tassert(not, 'foo'), undefined)
-  t.is(tassert(not, []), undefined)
-  t.throws(() => tassert(not, 42), TypeError)
-  t.throws(() => tassert(not, -Infinity), TypeError)
+  const a = not(number)
+  t.is(tassert(a, 'foo'), undefined)
+  t.is(tassert(a, []), undefined)
+  t.throws(() => tassert(a, 42), TypeError)
+  t.throws(() => tassert(a, -Infinity), TypeError)
 })
 
 test('xor', t => {
-  const xor = tassert.xor(tassert.literal(42), tassert.number)
-  t.is(tassert(xor, 41), undefined)
-  t.throws(() => tassert(xor, 42), TypeError)
-  t.throws(() => tassert(xor, '42'), TypeError)
+  const a = xor(literal(42), number)
+  t.is(tassert(a, 41), undefined)
+  t.throws(() => tassert(a, 42), TypeError)
+  t.throws(() => tassert(a, '42'), TypeError)
 })
 
 test('complex logic', t => {
-  const a = tassert.and(
-    tassert.number,
-    tassert.not(tassert.literal(42)),
-    tassert.not(tassert.nan)
+  const a = and(
+    number,
+    not(literal(42)),
+    not(nan)
   )
   t.is(tassert(a, -6321312.97), undefined)
   t.is(tassert(a, 41), undefined)
