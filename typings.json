@@ -2,8 +2,7 @@
   "dependencies": {
     "lodash": "registry:npm/lodash"
   },
-  "ambientDependencies": {
-    "es6-shim": "registry:dt/es6-shim",
+  "globalDependencies": {
     "node": "registry:dt/node"
   }
 }

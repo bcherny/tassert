@@ -1,6 +1,6 @@
 {
   "name": "tassert",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "High quality runtime assertions for Typescript",
   "main": "./tassert.js",
   "main:esnext": "./tassert.es6.js",
@@ -9,7 +9,8 @@
     "build": "tsc -d -m es2015 --outDir .; mv ./tassert.js ./tassert.es6.js; tsc -t es5 -m commonjs --outDir .;",
     "watch": "tsc -w",
     "test": "ava",
-    "tdd": "npm test -- --watch"
+    "tdd": "npm test -- --watch",
+    "postinstall": "typings install"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,7 @@
   "devDependencies": {
     "ava": "^0.14.0",
     "typescript": "^1.8.9",
-    "typings": "^0.7.12"
+    "typings": "^1.0.4"
   },
   "dependencies": {
     "lodash": "^4.8.2"
