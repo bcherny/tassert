@@ -1,3 +1,4 @@
+/// <reference types="node" />
 export interface Asserter {
     (value: any): boolean;
 }
@@ -16,7 +17,7 @@ export declare const object: (value: any) => value is number;
 export declare const regexp: (value: any) => value is number;
 export declare const string: (value: any) => value is string;
 export declare const symbol: (value: any) => value is symbol;
-export declare const typedArray: (value: any) => value is Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
+export declare const typedArray: (value: any) => value is TypedArray;
 export declare const Undefined: (value: any) => value is void;
 export declare const instanceOf: (gold: any) => (value: any) => boolean;
 export declare const literal: (gold: any, isDeep?: boolean) => (value: any) => boolean;
